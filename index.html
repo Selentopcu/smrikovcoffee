@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Smrikov Coffee - Menü</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f7f6f5;
+      --card:#ffffff;
+      --primary:#b95d5d;
+      --accent:#e2bdbd;
+      --muted:#6b6b6b;
+      --radius:12px;
+      --shadow: 0 8px 24px rgba(20,20,20,0.06);
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      max-width:1100px;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:#222;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:1100px;margin:28px auto;padding:18px}
+
+    header{display:flex;align-items:center;gap:12px;padding:14px;background:var(--card);border-radius:12px;box-shadow:var(--shadow)}
+    .logo{width:56px;height:56px;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:22px}
+    .brand{display:flex;flex-direction:column}
+    .brand h1{margin:0;font-size:18px}
+    .brand p{margin:0;color:var(--muted);font-size:13px}
+    nav{margin-left:auto;display:flex;gap:8px;align-items:center}
+    .nav-btn{background:transparent;border:none;padding:8px 10px;border-radius:8px;cursor:pointer;font-weight:700;color:var(--muted)}
+    .nav-btn.active, .nav-btn:hover{background:linear-gradient(90deg,var(--primary),var(--accent));color:white}
+
+    main{margin-top:18px;display:block;gap:18px}
+    section{display:none}
+    section.active{display:block}
+
+    /* hero */
+    .hero{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
+    .hero-text h2{margin:0;color:var(--primary)}
+    .hero-text p{margin:6px 0;color:var(--muted)}
+    .btn{padding:10px 14px;border-radius:10px;border:1px solid transparent;background:var(--primary);color:white;font-weight:700;cursor:pointer}
+    .btn.outline{background:transparent;color:var(--primary);border-color:var(--accent)}
+
+    /* menü */
+    .menu-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+    .all-toggle{position:relative}
+    .all-btn{padding:10px 14px;border-radius:10px;border:1px solid #EEE;background:var(--card);cursor:pointer;font-weight:700}
+    .all-btn.open{background:linear-gradient(90deg,var(--primary),var(--accent));color:white;border-color:transparent}
+
+    .dropdown{position:absolute;left:0;top:calc(100% + 8px);background:var(--card);box-shadow:var(--shadow);border-radius:10px;padding:10px;width:300px;display:none}
+    .dropdown.open{display:block}
+    .drop-list{display:flex;flex-direction:column;gap:6px}
+    .drop-item{padding:8px 10px;border-radius:8px;background:transparent;border:1px solid transparent;text-align:left;cursor:pointer;font-weight:700}
+    .drop-item:hover{background:#faf2f2}
+
+    /* quick buttons */
+    .quick-actions{display:flex;gap:8px;flex-wrap:wrap}
+    .quick-actions .all-btn{padding:8px 10px}
+
+    /* grid */
+    .grid{display:grid;gap:12px;grid-template-columns:repeat(3,1fr);margin-top:8px}
+    @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:640px){.grid{grid-template-columns:1fr}}
+    .product{background:var(--card);padding:12px;border-radius:10px;box-shadow:var(--shadow);display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+    .left{flex:1}
+    .name{font-weight:800;font-size:16px;margin:0 0 6px 0}
+    .desc{font-size:13px;color:var(--muted);margin-bottom:6px}
+    .price{font-weight:800;color:var(--primary);min-width:70px;text-align:right}
+
+    /* for items without description align center */
+    .no-desc .left{align-self:center}
+    .muted{color:var(--muted);font-size:13px}
+
+    /* contact and about */
+    .card{background:var(--card);padding:14px;border-radius:10px;box-shadow:var(--shadow)}
+    footer{text-align:center;color:var(--muted);margin-top:18px;font-size:13px}
+
+    /* small accessibility */
+    button:focus{outline:3px solid rgba(185,93,93,0.12);outline-offset:2px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="logo">K</div>
+        <div class="brand">
+          <h1>SMRIKOV COFFEE</h1>
+          <p class="muted">Sıcak, samimi ve lezzetli</p>
+        </div>
+      </div>
+
+      <nav aria-label="site navigation">
+        <button class="nav-btn active" data-page="home">Ana Sayfa</button>
+        <button class="nav-btn" data-page="about">Hakkımızda</button>
+        <button class="nav-btn" data-page="menu">Ürünlerimiz</button>
+        <button class="nav-btn" data-page="contact">İletişim</button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- HOME -->
+      <section id="home" class="active">
+        <div class="hero">
+          <div class="hero-text">
+            <h2>Kafenize Hoş geldiniz ☕</h2>
+            <p class="muted">Günün her anı için taze kahveler, kruvasanlar ve tatlılar — Bu müthiş tatların keyfini çıkarın.</p>
+            <div style="margin-top:10px">
+              <button class="btn" onclick="showPage('menu');openDropdown(false);setTimeout(()=>openDropdown(true),80)">Menüyü Gör</button>
+              <button class="btn outline" onclick="showPage('contact')">İletişim</button>
+            </div>
+          </div>
+          <div style="flex:0 0 300px">
+            <img src="resim/anamenu.jpg" alt="anamenu" style="width:100%;border-radius:10px;box-shadow:var(--shadow)">
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" style="display:none">
+        <div class="card">
+          <h3 style="color:var(--primary);margin:0 0 8px 0">Hakkımızda</h3>
+          <p class="muted">Smrikov Coffee, taze malzemeler ve sevgiyle hazırlanan ürünleriyle hizmet verir. </p>
+        </div>
+      </section>
+
+      <!-- MENU -->
+      <section id="menu" style="display:none">
+        <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+          <div class="menu-top">
+            <div class="all-toggle">
+              <button id="allBtn" class="all-btn">Tümü ▾</button>
+              <div id="dropdown" class="dropdown" aria-hidden="true">
+                <div class="drop-list">
+                  <div class="drop-item" data-cat="kruvasanlar">Kruvasanlar</div>
+                  <div class="drop-item" data-cat="kis-caylari">Kış Çayları</div>
+                  <div class="drop-item" data-cat="sicak-icecekler">Sıcak İçecekler</div>
+                  <div class="drop-item" data-cat="soguk-icecekler">Soğuk İçecekler</div>
+                  <div class="drop-item" data-cat="tatlilar">Tatlılar</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="quick-actions">
+              <button class="all-btn" onclick="selectCategory('all')">Tümü</button>
+              <button class="all-btn" onclick="selectCategory('kruvasanlar')">Kruvasanlar</button>
+              <button class="all-btn" onclick="selectCategory('tatlilar')">Tatlılar</button>
+            </div>
+          </div>
+
+          <div style="min-width:220px">
+            <input id="search" type="search" placeholder="Ara: isim veya fiyat..." style="width:100%;padding:10px;border-radius:10px;border:1px solid #eee">
+          </div>
+        </div>
+
+        <div id="grid" class="grid" style="margin-top:12px"></div>
+        <div id="empty" class="muted" style="display:none;margin-top:10px">Ürün bulunamadı.</div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" style="display:none">
+        <div class="card">
+          <h3 style="color:var(--primary);margin:0 0 8px 0">İletişim</h3>
+          <p class="muted">📍 Adres: Atatürk Caddesi No:12, İstanbul</p>
+          <p class="muted">📞 Telefon: <a href="tel:+905555555555">+90 555 555 55 55</a></p>
+          <p class="muted">✉️ E-posta: <a href="mailto:info@smrikovcoffee.com">info@smrikovcoffee.com</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer>© 2025 Smrikov Coffee - Tüm hakları saklıdır. </footer>
+  </div>
+
+  <script>
+    // Helper
+    function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    // Page nav
+    document.querySelectorAll('.nav-btn').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
+        b.classList.add('active');
+        showPage(b.dataset.page);
+      });
+    });
+    function showPage(id){
+      document.querySelectorAll('main section').forEach(s=>s.style.display = (s.id===id ? 'block' : 'none'));
+      // close dropdown
+      openDropdown(false);
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    // Dropdown behavior
+    const allBtn = document.getElementById('allBtn');
+    const dropdown = document.getElementById('dropdown');
+    allBtn.addEventListener('click', (e)=>{
+      const open = dropdown.classList.toggle('open');
+      allBtn.classList.toggle('open',open);
+      dropdown.setAttribute('aria-hidden', !open);
+    });
+    // close on outside click
+    document.addEventListener('click', (e)=>{
+      if(!allBtn.contains(e.target) && !dropdown.contains(e.target)) openDropdown(false);
+    });
+    function openDropdown(open){
+      dropdown.classList.toggle('open', !!open);
+      allBtn.classList.toggle('open', !!open);
+      dropdown.setAttribute('aria-hidden', !open);
+    }
+
+    // Data: tüm ürün listeleri (isimler senin verdiğin şekilde)
+    const menu = {
+      'kruvasanlar': [
+        {id:'k1',name:'Sade Kruvasan', price:'₺80', desc:'Tereyağlı, çıtır dış yüzey ve hafif yumuşak iç.'},
+        {id:'k2',name:'Çikolatalı Kruvasan', price:'₺100', desc:'İçinde kaliteli sütlü çikolata dolgusu.'},
+        {id:'k3',name:'Meyve Rüyası (Çilek-Muz) Kruvasan', price:'₺120', desc:'Taze çilek ve muz dilimleri, hafif krema ile.'},
+        {id:'k4',name:'Jambon-Kaşar Kruvasan', price:'₺120', desc:'Jambon ve kaşar peyniri ile sıcak servis.'}
+      ],
+      'kis-caylari': [
+        {id:'c1',name:'Ihlamur', price:'₺60', desc:'Rahatlatıcı, hafif tatlı ıhlamur aroması.'},
+        {id:'c2',name:'Papatya', price:'₺60', desc:'Sakinleştirici papatya çayı.'},
+        {id:'c3',name:'Ada Çayı', price:'₺60', desc:'Geleneksel ada çayı, doğal tat.'},
+        {id:'c4',name:'Kuşburnu', price:'₺60', desc:'C vitamini desteğiyle sıcak kuşburnu.'},
+        {id:'c5',name:'Yeşilçay', price:'₺60', desc:'Dengeli aromalı yeşil çay.'}
+      ],
+      'sicak-icecekler': [
+        {id:'s1',name:'Çay', price:'₺30'},
+        {id:'s2',name:'Türk Kahvesi', price:'₺80'},
+        {id:'s3',name:'Coffee Latte', price:'₺100'},
+        {id:'s4',name:'Filtre Kahve', price:'₺85'},
+        {id:'s5',name:'Espresso', price:'₺95'},
+        {id:'s6',name:'Sıcak Çikolata', price:'₺90'},
+        {id:'s7',name:'Sahlep', price:'₺80'},
+        {id:'s8',name:'White Chocolate Mocha', price:'₺100'}
+      ],
+      'soguk-icecekler': [
+        {id:'so1',name:'Cool Lime', price:'₺90', desc:'Buzlu, limon-lime aromalı ferahlatıcı.'},
+        {id:'so2',name:'Limonata', price:'₺90', desc:'Taze sıkılmış limon ile yapılan klasik limonata.'},
+        {id:'so3',name:'Çilekli Limonata', price:'₺110', desc:'Taze çilek püresiyle hafif tatlandırılmış.'},
+        {id:'so4',name:'Frozen', price:'₺100', desc:'Seçime göre meyveli frozen.'},
+        {id:'so5',name:'Sıkma Portakal Suyu', price:'₺100', desc:'Taptaze sıkılmış portakal suyu.'},
+        {id:'so6',name:'Churchill', price:'₺100', desc:'Özel karışım soğuk içecek.'},
+        {id:'so7',name:'Milkshake', price:'₺130', desc:'Süt ve dondurma karışımı (Çilek,Muz,Kakao,Antep Fıstıklı,Bal-Badem).'},
+        {id:'so8',name:'Cold Brew', price:'₺120', desc:'Soğuk demleme kahve, yumuşak ve az asidik.'},
+        {id:'so9',name:'Frappe', price:'₺100', desc:'Köpüklü buzlu kahve içeceği.'},
+        {id:'so10',name:'Ice Latte', price:'₺120', desc:'Soğuk süt ve espresso karışımı.'},
+        {id:'so11',name:'Ice Karamel Latte', price:'₺130', desc:'Karamel soslu soğuk latte.'},
+        {id:'so12',name:'Kurabiyeli Ice Latte', price:'₺150', desc:'Bisküvi parçacıkları ile tatlandırılmış.'},
+        {id:'so13',name:'Ice Vanilya Latte', price:'₺120', desc:'Vanilya aromalı soğuk latte.'},
+        {id:'so14',name:'Iced Mocha', price:'₺110', desc:'Çikolata ve espresso karışımı soğuk hali.'},
+        {id:'so15',name:'Ice Americano', price:'₺100', desc:'Buzlu americano.'}
+      ],
+      'tatlilar': [
+        {id:'t1',name:'İzmir Bombası', price:'₺60', desc:'Bol kremalı, sıcak servis tatlısı.'},
+        {id:'t2',name:'Cookie', price:'₺50', desc:'Taze pişmiş çikolatalı kurabiye.'},
+        {id:'t3',name:'Brownie', price:'₺180', desc:'Yoğun çikolatalı, yumuşak brownie.'},
+        {id:'t4',name:'Muzlu Rulo Pasta', price:'₺130', desc:'Muzlu kremalı rulo pasta.'},
+        {id:'t5',name:'Mozaik Pasta', price:'₺150', desc:'Klasik kakaolu mozaik pasta.'},
+        {id:'t6',name:'Tiramisu', price:'₺170', desc:'Klasik İtalyan tatlısı.'},
+        {id:'t7',name:'Profiterol', price:'₺170', desc:'Çikolata soslu mini profiteroller.'},
+        {id:'t8',name:'Yaban Mersinli Bardak Cheesecake', price:'₺185', desc:'Bardakta sunulan yaban mersinli cheesecake.'},
+        {id:'t9',name:'Limonlu Cheesecake', price:'₺200', desc:'Ferah limon aromalı cheesecake.'},
+        {id:'t10',name:'Frambuazlı Cheesecake', price:'₺200', desc:'Frambuaz ile tatlandırılmış cheesecake.'},
+        {id:'t11',name:'Orman Meyveli Tart', price:'₺190', desc:'Taze orman meyveleriyle tart.'},
+        {id:'t12',name:'Çilek Rüyası Tart', price:'₺190', desc:'Taze çileklerle hazırlanan tart.'},
+        {id:'t13',name:'Havuçlu Kek', price:'₺120', desc:'Baharatlı nemli havuçlu kek.'},
+        {id:'t14',name:'Limonlu Kek', price:'₺120', desc:'Limon aromalı hafif kek.'},
+        {id:'t15',name:'Kakao Rüyası Kek', price:'₺120', desc:'Yoğun kakao aromalı kek.'},
+        {id:'t16',name:'Muffin', price:'₺75', desc:'Günlük taze muffin .'}
+      ]
+    };
+
+    // state
+    let activeCat = 'all';
+
+    // render function
+    const grid = document.getElementById('grid');
+    const empty = document.getElementById('empty');
+    const search = document.getElementById('search');
+
+    function flattenAll(){
+      return Object.keys(menu).reduce((acc,k)=>acc.concat(menu[k]), []);
+    }
+
+    function render(catKey){
+      grid.innerHTML = '';
+      let items = catKey === 'all' ? flattenAll() : (menu[catKey] || []);
+      const q = (search.value || '').trim().toLowerCase();
+      if(q) items = items.filter(it => (it.name + ' ' + (it.desc||'') + ' ' + (it.price||'')).toLowerCase().includes(q));
+      if(items.length === 0){
+        empty.style.display = 'block';
+        return;
+      } else empty.style.display = 'none';
+
+      items.forEach(it=>{
+        const div = document.createElement('div');
+        div.className = 'product' + ((it.desc) ? '' : ' no-desc');
+        div.innerHTML = `
+          <div class="left">
+            <div class="name">${escapeHtml(it.name)}</div>
+            ${it.desc ? `<div class="desc">${escapeHtml(it.desc)}</div>` : ''}
+          </div>
+          <div class="price">${escapeHtml(it.price||'')}</div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+
+    // initial render all
+    render('all');
+
+    // dropdown items click -> select category
+    document.querySelectorAll('.drop-item').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const cat = b.dataset.cat;
+        activeCat = cat;
+        render(cat);
+        openDropdown(false);
+      });
+    });
+
+    // quick select function (used by quick buttons)
+    function selectCategory(cat){
+      activeCat = cat;
+      render(cat);
+      showPage('menu');
+    }
+    window.selectCategory = selectCategory;
+
+    // search behavior
+    search.addEventListener('input', ()=> render(activeCat || 'all'));
+
+    // ensure when user clicks Menüyü Gör from home we open dropdown (small delay handled in onclick)
+    // optional: keyboard accessibility for dropdown
+    allBtn.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDropdown(!dropdown.classList.contains('open')); }
+      if(e.key === 'Escape') openDropdown(false);
+    });
+
+    // Expose openDropdown to global used by home button
+    window.openDropdown = openDropdown;
+
+  </script>
+</body>
+</html>
