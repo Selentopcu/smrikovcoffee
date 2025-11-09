@@ -34,7 +34,7 @@
     section{display:none}
     section.active{display:block}
 
-    /* hero */
+    
     .hero{display:flex;gap:18px;align-items:center;flex-wrap:wrap;margin-bottom:12px}
     .hero-text h2{margin:0;color:var(--primary)}
     .hero-text p{margin:6px 0;color:var(--muted)}
@@ -53,11 +53,11 @@
     .drop-item{padding:8px 10px;border-radius:8px;background:transparent;border:1px solid transparent;text-align:left;cursor:pointer;font-weight:700}
     .drop-item:hover{background:#faf2f2}
 
-    /* quick buttons */
+  
     .quick-actions{display:flex;gap:8px;flex-wrap:wrap}
     .quick-actions .all-btn{padding:8px 10px}
 
-    /* grid */
+
     .grid{display:grid;gap:12px;grid-template-columns:repeat(3,1fr);margin-top:8px}
     @media (max-width:980px){.grid{grid-template-columns:repeat(2,1fr)}}
     @media (max-width:640px){.grid{grid-template-columns:1fr}}
@@ -67,15 +67,15 @@
     .desc{font-size:13px;color:var(--muted);margin-bottom:6px}
     .price{font-weight:800;color:var(--primary);min-width:70px;text-align:right}
 
-    /* for items without description align center */
+   
     .no-desc .left{align-self:center}
     .muted{color:var(--muted);font-size:13px}
 
-    /* contact and about */
+    /* İLETİSİM VE MENU ALANI */
     .card{background:var(--card);padding:14px;border-radius:10px;box-shadow:var(--shadow)}
     footer{text-align:center;color:var(--muted);margin-top:18px;font-size:13px}
 
-    /* small accessibility */
+  
     button:focus{outline:3px solid rgba(185,93,93,0.12);outline-offset:2px}
   </style>
 </head>
@@ -99,7 +99,7 @@
     </header>
 
     <main>
-      <!-- HOME -->
+      <!-- ANAMENU-->
       <section id="home" class="active">
         <div class="hero">
           <div class="hero-text">
@@ -116,7 +116,7 @@
         </div>
       </section>
 
-      <!-- ABOUT -->
+      <!-- HAKKIMDA -->
       <section id="about" style="display:none">
         <div class="card">
           <h3 style="color:var(--primary);margin:0 0 8px 0">Hakkımızda</h3>
@@ -157,7 +157,7 @@
         <div id="empty" class="muted" style="display:none;margin-top:10px">Ürün bulunamadı.</div>
       </section>
 
-      <!-- CONTACT -->
+      <!--ILETİSİM -->
       <section id="contact" style="display:none">
         <div class="card">
           <h3 style="color:var(--primary);margin:0 0 8px 0">İletişim</h3>
@@ -172,10 +172,10 @@
   </div>
 
   <script>
-    // Helper
+  
     function escapeHtml(s){ return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
 
-    // Page nav
+
     document.querySelectorAll('.nav-btn').forEach(b=>{
       b.addEventListener('click', ()=>{
         document.querySelectorAll('.nav-btn').forEach(x=>x.classList.remove('active'));
@@ -190,7 +190,7 @@
       window.scrollTo({top:0,behavior:'smooth'});
     }
 
-    // Dropdown behavior
+   
     const allBtn = document.getElementById('allBtn');
     const dropdown = document.getElementById('dropdown');
     allBtn.addEventListener('click', (e)=>{
@@ -198,7 +198,7 @@
       allBtn.classList.toggle('open',open);
       dropdown.setAttribute('aria-hidden', !open);
     });
-    // close on outside click
+  
     document.addEventListener('click', (e)=>{
       if(!allBtn.contains(e.target) && !dropdown.contains(e.target)) openDropdown(false);
     });
@@ -208,10 +208,10 @@
       dropdown.setAttribute('aria-hidden', !open);
     }
 
-    // Data: tüm ürün listeleri (isimler senin verdiğin şekilde)
+    
     const menu = {
       'kruvasanlar': [
-        {id:'k1',name:'Sade Kruvasan', price:'₺80', desc:'Tereyağlı, çıtır dış yüzey ve hafif yumuşak iç.'},
+        {id:'k1',name:'Sade Kruvasan', price:'₺80', desc:'Tereyağlı, çıtır dış yüzey ve hafif yumuşak iç.',image:'resim\\anamenu.jpg'},
         {id:'k2',name:'Çikolatalı Kruvasan', price:'₺100', desc:'İçinde kaliteli sütlü çikolata dolgusu.'},
         {id:'k3',name:'Meyve Rüyası (Çilek-Muz) Kruvasan', price:'₺120', desc:'Taze çilek ve muz dilimleri, hafif krema ile.'},
         {id:'k4',name:'Jambon-Kaşar Kruvasan', price:'₺120', desc:'Jambon ve kaşar peyniri ile sıcak servis.'}
@@ -270,10 +270,9 @@
       ]
     };
 
-    // state
     let activeCat = 'all';
 
-    // render function
+    
     const grid = document.getElementById('grid');
     const empty = document.getElementById('empty');
     const search = document.getElementById('search');
@@ -306,10 +305,9 @@
       });
     }
 
-    // initial render all
     render('all');
 
-    // dropdown items click -> select category
+   
     document.querySelectorAll('.drop-item').forEach(b=>{
       b.addEventListener('click', ()=>{
         const cat = b.dataset.cat;
@@ -319,7 +317,7 @@
       });
     });
 
-    // quick select function (used by quick buttons)
+   
     function selectCategory(cat){
       activeCat = cat;
       render(cat);
@@ -327,17 +325,16 @@
     }
     window.selectCategory = selectCategory;
 
-    // search behavior
+    
     search.addEventListener('input', ()=> render(activeCat || 'all'));
 
-    // ensure when user clicks Menüyü Gör from home we open dropdown (small delay handled in onclick)
-    // optional: keyboard accessibility for dropdown
+   
     allBtn.addEventListener('keydown', (e)=>{
       if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDropdown(!dropdown.classList.contains('open')); }
       if(e.key === 'Escape') openDropdown(false);
     });
 
-    // Expose openDropdown to global used by home button
+ 
     window.openDropdown = openDropdown;
 
   </script>
